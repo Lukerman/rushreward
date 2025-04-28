@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In/Register - GiftRush</title>
+    <meta name="description" content="Sign in or create a new account on GiftRush to start earning rewards through referrals.">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/icons/gift.svg" type="image/svg+xml">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">Gift<span>Rush</span></a>
+                
+                <ul class="nav-links">
+                    <li><a href="/#how-it-works">How It Works</a></li>
+                    <li><a href="/#testimonials">Testimonials</a></li>
+                    <li><a href="/#faq">FAQ</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <!-- Auth Container -->
+        <div class="auth-container">
+            <!-- Auth Content -->
+            <div class="auth-content">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-form="login-form">Login</div>
+                    <div class="auth-tab" data-form="register-form">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <div class="auth-form-content" id="login-form">
+                    <form class="auth-form">
+                        <h2>Welcome Back!</h2>
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" name="username" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" name="password" class="form-control" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        
+                        <div class="auth-form-footer">
+                            <p>Don't have an account? <a href="#" class="switch-form" data-form="register-form">Register now</a></p>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="auth-form-content" id="register-form" style="display: none;">
+                    <form class="auth-form">
+                        <h2>Create Your Account</h2>
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" name="username" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" name="password" class="form-control" data-min-length="6" required>
+                            <small class="text-muted">Password must be at least 6 characters long</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-confirm-password">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" name="confirm_password" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="referral-code">Referral Code (Optional)</label>
+                            <input type="text" id="referral-code" name="referral" class="form-control">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                        
+                        <div class="auth-form-footer">
+                            <p>Already have an account? <a href="#" class="switch-form" data-form="login-form">Sign in</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Auth Hero -->
+            <div class="auth-hero">
+                <h2>Join GiftRush Today!</h2>
+                <p>Start earning points by inviting your friends and redeem them for Google Play gift cards!</p>
+                <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f" alt="Gift cards and rewards" style="max-width: 100%; border-radius: 10px; margin-top: 2rem;">
+                
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Why Join GiftRush?</h3>
+                    <ul style="list-style-type: none; padding: 0;">
+                        <li style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-check-circle" style="margin-right: 10px; color: #ff7043;"></i>
+                            <span>Free to join, no credit card required</span>
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-check-circle" style="margin-right: 10px; color: #ff7043;"></i>
+                            <span>Earn 500 points for each friend who joins</span>
+                        </li>
+                        <li style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-check-circle" style="margin-right: 10px; color: #ff7043;"></i>
+                            <span>Redeem points for Google Play gift cards</span>
+                        </li>
+                        <li style="display: flex; align-items: center;">
+                            <i class="fas fa-check-circle" style="margin-right: 10px; color: #ff7043;"></i>
+                            <span>Fast and secure redemption process</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftRush</h3>
+                    <p>Turn your social network into rewards with our referral program. Invite friends, earn points, get gift cards!</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li><a href="/#testimonials">Testimonials</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Reward Terms</a></li>
+                        <li><a href="#">Referral Rules</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Account</h3>
+                    <ul>
+                        <li><a href="/auth">Login</a></li>
+                        <li><a href="/auth?register=true">Register</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="#">Forgot Password</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 GiftRush. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        // Add event listeners for switching between forms
+        document.querySelectorAll('.switch-form').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const formId = this.getAttribute('data-form');
+                const tabToActivate = document.querySelector(`.auth-tab[data-form="${formId}"]`);
+                
+                if (tabToActivate) {
+                    tabToActivate.click();
+                }
+            });
+        });
+        
+        // Check for URL parameters
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const register = urlParams.get('register');
+            
+            if (register === 'true') {
+                // Show registration form
+                const registerTab = document.querySelector('[data-form="register-form"]');
+                if (registerTab) {
+                    registerTab.click();
+                }
+                
+                // If there's a referral code, fill it in
+                const ref = urlParams.get('ref');
+                if (ref) {
+                    const referralInput = document.getElementById('referral-code');
+                    if (referralInput) {
+                        referralInput.value = ref;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

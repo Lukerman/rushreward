@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GiftRush</title>
+    <meta name="description" content="GiftRush dashboard - view your points, referrals, and redeem rewards.">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/icons/gift.svg" type="image/svg+xml">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">Gift<span>Rush</span></a>
+                
+                <ul class="nav-links">
+                    <li><a href="/dashboard" class="active">Dashboard</a></li>
+                    <li><a href="/dashboard#rewards">Rewards</a></li>
+                    <li><a href="/dashboard#referrals">Referrals</a></li>
+                    <li><a href="/dashboard#redemptions">Redemptions</a></li>
+                    <li><a href="javascript:void(0);" id="logout-link">Logout</a></li>
+                </ul>
+                
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="dashboard">
+            <div class="container">
+                <!-- Adblock Warning (hidden by default) -->
+                <div class="adblock-warning">
+                    <strong>Adblock Detected!</strong> Our website is supported by displaying online advertisements. 
+                    Please consider disabling your ad blocker on our website to support us!
+                    <button class="btn btn-sm btn-warning" style="margin-left: 10px;" id="dismiss-adblock">Dismiss</button>
+                </div>
+                
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <h1 id="welcome-message">Welcome back!</h1>
+                    <p>Here's an overview of your account activity and rewards.</p>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Available Points</h3>
+                            <div class="stat-card-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="user-points">0</div>
+                        <div class="stat-card-label">Points Balance</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Total Referrals</h3>
+                            <div class="stat-card-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="referrals-count">0</div>
+                        <div class="stat-card-label">Friends Invited</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Redemptions</h3>
+                            <div class="stat-card-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="redemptions-count">0</div>
+                        <div class="stat-card-label">Rewards Claimed</div>
+                    </div>
+                </div>
+                
+                <!-- Ad container -->
+                <div class="ad-container">
+                    <div class="adblock-placeholder">Advertisement placeholder - Please disable your adblocker to support us!</div>
+                </div>
+                
+                <!-- Main Dashboard Content -->
+                <div class="dashboard-main">
+                    <!-- Referral Section -->
+                    <div class="dashboard-section" id="referrals">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Your Referral Link</h2>
+                        </div>
+                        
+                        <div class="referral-link-container">
+                            <p class="referral-text">Share this link with your friends and earn 500 points for each sign-up:</p>
+                            <div class="referral-link">
+                                <input type="text" id="referral-link" readonly>
+                                <button class="btn btn-primary" id="copy-referral-link">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="social-share">
+                                <p>Or share directly:</p>
+                                <div class="social-buttons">
+                                    <a href="#" class="btn btn-sm btn-outline" onclick="shareViaFacebook(); return false;">
+                                        <i class="fab fa-facebook-f"></i> Facebook
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-outline" onclick="shareViaTwitter(); return false;">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-outline" onclick="shareViaEmail(); return false;">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Your Referrals</h2>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="referral-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Joined Date</th>
+                                        <th>Points Earned</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="referrals-table-body">
+                                    <tr>
+                                        <td colspan="3" class="text-center">Loading referrals...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Rewards Section -->
+                    <div class="dashboard-section" id="rewards">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Available Rewards</h2>
+                        </div>
+                        
+                        <div id="rewards-container">
+                            <div class="text-center p-4">
+                                <p>Loading available rewards...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Redemption History -->
+                <div class="dashboard-section" id="redemptions" style="margin-top: 2rem;">
+                    <div class="dashboard-section-header">
+                        <h2 class="dashboard-section-title">Redemption History</h2>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="referral-table">
+                            <thead>
+                                <tr>
+                                    <th>Reward</th>
+                                    <th>Date</th>
+                                    <th>Points</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="redemptions-table-body">
+                                <tr>
+                                    <td colspan="5" class="text-center">Loading redemption history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Ad container -->
+                <div class="ad-container" style="margin-top: 2rem;">
+                    <div class="adblock-placeholder">Advertisement placeholder - Please disable your adblocker to support us!</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Redemption Modal -->
+    <div class="modal-overlay" id="redemption-modal">
+        <div class="modal-container">
+            <div class="modal-close" onclick="closeModal('redemption-modal')">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <h3 class="modal-title">Redeem Reward</h3>
+            
+            <div class="modal-body">
+                <form id="redemption-form">
+                    <input type="hidden" id="reward-id" name="rewardId">
+                    
+                    <div class="form-group">
+                        <label>Selected Reward:</label>
+                        <p id="reward-name-display" style="font-weight: 600;"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Cost:</label>
+                        <p><span id="reward-points-display"></span> points</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="redemption-email">Email for delivery:</label>
+                        <input type="email" id="redemption-email" name="email" class="form-control" required>
+                        <small class="text-muted">We'll send your gift card code to this email address.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="redemption-country">Country:</label>
+                        <select id="redemption-country" name="country" class="form-control" required>
+                            <option value="">Select your country</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="IN">India</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                            <option value="JP">Japan</option>
+                            <option value="BR">Brazil</option>
+                            <option value="MX">Mexico</option>
+                            <option value="IT">Italy</option>
+                            <option value="ES">Spain</option>
+                            <option value="KR">South Korea</option>
+                            <option value="RU">Russia</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                        <small class="text-muted">Google Play gift cards are region-specific and must match your store region.</small>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('redemption-modal')">Cancel</button>
+                <button type="submit" form="redemption-form" class="btn btn-primary">Confirm Redemption</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gift Card Code Modal -->
+    <div class="modal-overlay" id="gift-card-details-modal">
+        <div class="modal-container">
+            <div class="modal-close" onclick="closeModal('gift-card-details-modal')">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <h3 class="modal-title">Your Gift Card</h3>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Reward Name:</label>
+                    <p id="gc-reward-name" style="font-weight: 600;"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Redemption Date:</label>
+                    <p id="gc-redemption-date"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Google Play Gift Card Code:</label>
+                    <div class="input-group">
+                        <input type="text" id="gc-code" class="form-control" readonly>
+                        <button type="button" class="btn btn-primary" onclick="copyGiftCardCode()">Copy</button>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="gc-notes-container" style="display:none;">
+                    <label>Additional Notes:</label>
+                    <div class="alert alert-info" id="gc-notes"></div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="alert alert-success">
+                        <i class="fas fa-info-circle"></i> Your gift card has been approved. Please redeem it soon at the Google Play Store.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeModal('gift-card-details-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftRush</h3>
+                    <p>Turn your social network into rewards with our referral program. Invite friends, earn points, get gift cards!</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li><a href="/#testimonials">Testimonials</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Reward Terms</a></li>
+                        <li><a href="#">Referral Rules</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/#contact">Contact Us</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 GiftRush. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="/js/main.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/adblock-detector.js"></script>
+    
+    <script>
+        // Function to copy gift card code to clipboard
+        function copyGiftCardCode() {
+            const codeInput = document.getElementById('gc-code');
+            codeInput.select();
+            document.execCommand('copy');
+            showToast('Gift card code copied to clipboard!', 'success');
+        }
+
+        // Initialize modals
+        document.addEventListener('DOMContentLoaded', function() {
+            initModal('redemption-modal');
+            initModal('gift-card-details-modal');
+            
+            // Set up the redemption form submit
+            const redemptionForm = document.getElementById('redemption-form');
+            if (redemptionForm) {
+                redemptionForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const rewardId = document.getElementById('reward-id').value;
+                    const email = document.getElementById('redemption-email').value;
+                    const country = document.getElementById('redemption-country').value;
+                    
+                    if (!rewardId || !email || !country) {
+                        showToast('Please fill in all fields', 'error');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    const submitBtn = document.querySelector('#redemption-modal .modal-footer button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                    
+                    fetch('/api/rewards/redeem', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            rewardId,
+                            email,
+                            country
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => {
+                                throw new Error(err.message || 'Failed to redeem reward');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Close modal
+                        closeModal('redemption-modal');
+                        
+                        // Show success message
+                        showToast('Reward redemption request submitted!', 'success');
+                        
+                        // Update user stats
+                        updateUserStats();
+                        
+                        // Reload redemption history
+                        loadRedemptionHistory();
+                        
+                        // Reset form
+                        redemptionForm.reset();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast(error.message, 'error');
+                    })
+                    .finally(() => {
+                        // Reset button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    });
+                });
+            }
+            
+            // Set up logout functionality
+            document.getElementById('logout-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                fetch('/api/logout', {
+                    method: 'POST',
+                })
+                .then(() => {
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    console.error('Logout failed:', error);
+                    showToast('Logout failed. Please try again.', 'error');
+                });
+            });
+            
+            // Set up social sharing functions
+            window.shareViaFacebook = function() {
+                const referralLink = document.getElementById('referral-link').value;
+                const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`;
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            };
+            
+            window.shareViaTwitter = function() {
+                const referralLink = document.getElementById('referral-link').value;
+                const shareText = "Join GiftRush and earn free gift cards! Use my referral link:";
+                const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(referralLink)}`;
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            };
+            
+            window.shareViaEmail = function() {
+                const referralLink = document.getElementById('referral-link').value;
+                const subject = "Join GiftRush - Get Free Gift Cards!";
+                const body = `Hey! I'm using GiftRush to earn free gift cards by referring friends. Join using my link and we both earn points: ${referralLink}`;
+                const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+            };
+        });
+    </script>
+</body>
+</html>
